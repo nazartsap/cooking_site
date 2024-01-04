@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-function App() {
+import IngredientList from './components/IngredientList';
+import RecipeList from './components/RecipeList';
+import PopularRecipes from './components/PopularRecipes';
+
+const App = () => {
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+  const [popularRecipes, setPopularRecipes] = useState(['рецепт 1', 'рецепт 2', 'рецепт 3']);
+
+  const handleIngredientSelect = (ingredient) => {
+    setSelectedIngredients([...selectedIngredients, ingredient]);
+    generateRecipes([...selectedIngredients, ingredient]);
+  };
+
+  const generateRecipes = (selectedIngredients) => {
+    const generatedRecipes = [
+      `${selectedIngredients.join(', ')}`,
+      `Another recipe with ${selectedIngredients.join(', ')}`,
+    ];
+    setRecipes(generatedRecipes);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div style={{ display: 'flex',justifyContent:'space-around', alignItems: 'center' }}>
+        <IngredientList 
+          ingredients={['Яйцо', 'Мука', 'Марковка']}
+          onSelect={handleIngredientSelect}
+        />
+        <RecipeList recipes={recipes} />
+        <PopularRecipes popularRecipes={popularRecipes} />
+      </div>
+    </DndProvider>
   );
-}
+};
 
 export default App;
