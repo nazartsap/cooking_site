@@ -1,7 +1,28 @@
-import React from 'react';
 import '../styles/Registration.css';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.type]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/auth/login', formData);
+      console.log(response.data);
+      // Handle success, maybe store the token in local storage or redirect to a dashboard
+    } catch (error) {
+      console.error('Login failed:', error.response.data.message);
+      // Handle error, show an error message to the user
+    }
+  };
   return (
     <div>
     <section className="text-center">
@@ -13,20 +34,20 @@ const Login = () => {
               <h2 className="fw-bold mb-5">Войти</h2>
               <form>
                 <div className="form-outline">
-                  <input type="email" id="" className="form-control" />
+                  <input type="email" id="" className="form-control" onChange={handleChange} />
                   <label className="form-label">
                     Email 
                   </label>
                 </div>
 
                 <div className="form-outline">
-                  <input type="password" id="" className="form-control"/>
+                  <input type="password" id="" className="form-control"  onChange={handleChange}/>
                   <label className="form-label">
                     Пароль
                   </label>
                 </div>
                 
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="btn-primary" onClick={handleSubmit}>
                   Войти
                 </button>
 
