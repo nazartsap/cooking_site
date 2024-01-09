@@ -2,11 +2,7 @@ import React from 'react';
 const Help = () =>{
   return (
     <div>
-      <h3>Dogs</h3>
-      <div>
-        <img src="./dog.png"/>
-        <img src="./dog.png"/>
-      </div>
+      <h3>Топ-100 рецептов</h3>
     </div>
   );
 }

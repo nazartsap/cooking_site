@@ -1,0 +1,54 @@
+.background{
+    background-image: url('C:\Users\nazar\OneDrive\Desktop\cooking_site\public\assets\background.jpg');
+    height: 400px;
+}
+
+.reg_card{
+    display: flex;
+    flex-direction: column;
+    margin-top: -100px;
+    background: hsla(0, 0%, 100%, 0.8);
+    backdrop-filter: blur(30px);
+    border-radius: 20px;
+    opacity: .99;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.form-control{
+    min-height: auto;
+    padding-top: .32rem;
+    padding-bottom: .32rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    border-radius: 5px;
+}
+.form-outline{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2%;
+}
+.form-label{
+    font-family: inherit;
+}
+.reg-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.name-sername{
+    display: flex;
+    margin-bottom: 2%;
+}
+.btn-primary{
+    background-color: #8dd4d2;
+    border: 0;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    width: 470px;
+    height: 36px;
+}
+.form-check{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 2%;
+}

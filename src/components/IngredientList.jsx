@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
-import '../styles/ingredients_block.css';
+import '../styles/Home.css';
 const Ingredient = ({ name, onSelect }) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'INGREDIENT',
@@ -23,6 +23,7 @@ const Ingredient = ({ name, onSelect }) => {
         border: '1px solid #000',
         padding: '8px',
         borderRadius: '20px',
+        backgroundColor: '#0ABAB5',
       }}
     >
       {name}
@@ -33,7 +34,7 @@ const Ingredient = ({ name, onSelect }) => {
 const IngredientList = ({ ingredients, onSelect }) => {
   return (
     <div className='ingredient-list'>
-      <h2>Ингредиенты</h2>
+      <h2 className='hader'>Ингредиенты</h2>
       {ingredients.map((ingredient, index) => (
         <Ingredient key={index} name={ingredient} onSelect={onSelect} />
       ))}
