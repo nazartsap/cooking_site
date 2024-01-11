@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDrag } from 'react-dnd';
+import axios from 'axios';
 import '../styles/Home.css';
+
 const Ingredient = ({ name, onSelect }) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'INGREDIENT',
@@ -11,7 +13,8 @@ const Ingredient = ({ name, onSelect }) => {
   });
 
   return (
-    <div className='ingredient-item'
+    <div
+      className='ingredient-item'
       onClick={() => onSelect(name)}
       ref={drag}
       style={{
@@ -31,15 +34,30 @@ const Ingredient = ({ name, onSelect }) => {
   );
 };
 
-const IngredientList = ({ ingredients, onSelect }) => {
+const IngredientList = ({ onSelect }) => {
+  const [ingredients, setIngredients] = useState([]);
+
+  useEffect(() => {
+    const fetchIngredients = async () => {
+      try {
+        const response = await axios.get('https://important-cyan-sandals.cyclic.app/ingredients');
+        setIngredients(response.data);
+      } catch (error) {
+        console.error('Error fetching ingredients:', error);
+      }
+    };
+
+    fetchIngredients();
+  }, []);
+
   return (
     <div className='ingredient-block'>
-      <h2 className='hader'>Ингредиенты</h2>
-        <div className='ingredient-list'>
-        {ingredients.map((ingredient, index) => (
-          <Ingredient key={index} name={ingredient} onSelect={onSelect} />
+      <h2 className='header'>Ингредиенты</h2>
+      <div className='ingredient-list'>
+        {ingredients.map((ingredient) => (
+          <Ingredient key={ingredient._id} name={ingredient.name} onSelect={onSelect} />
         ))}
-        </div>
+      </div>
     </div>
   );
 };

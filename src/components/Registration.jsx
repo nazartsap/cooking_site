@@ -17,7 +17,7 @@
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('http://localhost:3000/auth/signup', {
+        const response = await axios.post('https://important-cyan-sandals.cyclic.app/auth/signup', {
           name: formData.name,
           surname: formData.surname,
           email: formData.email,
