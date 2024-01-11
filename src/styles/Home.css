@@ -1,13 +1,12 @@
 .block{
     display: flex;
     justify-content: space-between;
-    background-color:#0ABAB5;
 }
 
 .hader{
     color: #000;
     text-align: center;
-    font-family: Inter;
+    font-family: Apple Chancery, cursive;
     font-size: 22px;
     font-style: normal;
     font-weight: 400;
@@ -17,11 +16,15 @@
 /* Популярные рецепты */
 .popular_recipes{
     display: flex;
-    width: 15%;
     flex-direction:column;
     padding: 2%;
     background-color: #21817E;
     gap: 10px;
+}
+
+.popular-recipe-cards-container{
+    display: flex;
+    flex-direction: column;
 }
 /* Рецепты */
 .recipe_list_block{
@@ -43,7 +46,7 @@
     justify-content: center; 
   }
   
-  .selected-ingredients {
+  li{
     width: 100px;
     height: 60px;
     background-color: #0ABAB5;
@@ -60,15 +63,21 @@
 }
   
 /* Ингредиенты */
-.ingredient-list {
+.ingredient-block {
     display: flex;
+    font-family: Apple Chancery, cursive;
     flex-direction: column;
-    width: 15%;
     padding: 2%;
     background-color: #C7E5E3;
+    max-width: 250px;
 }
 .selected-ingredients-bloc{
     background-color: #D9D9D9;
     border-radius: 75px;
     padding: 2%;
+}
+.ingredient-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }

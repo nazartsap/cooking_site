@@ -33,11 +33,13 @@ const Ingredient = ({ name, onSelect }) => {
 
 const IngredientList = ({ ingredients, onSelect }) => {
   return (
-    <div className='ingredient-list'>
+    <div className='ingredient-block'>
       <h2 className='hader'>Ингредиенты</h2>
-      {ingredients.map((ingredient, index) => (
-        <Ingredient key={index} name={ingredient} onSelect={onSelect} />
-      ))}
+        <div className='ingredient-list'>
+        {ingredients.map((ingredient, index) => (
+          <Ingredient key={index} name={ingredient} onSelect={onSelect} />
+        ))}
+        </div>
     </div>
   );
 };

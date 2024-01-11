@@ -2,21 +2,30 @@
     display: flex;
     flex-direction: column;
     border: 1px solid #000;
-    border-radius: 50px;
-    padding: 2%;
     background-color: beige;
-}
-.recipe-cards-container{
-    display: flex;
-    flex-direction: column;
-    margin: 5%;
-    gap: 10px;
 }
 .recipe-des{
     display: flex;
+    flex-direction: column;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 .recipe-img-contaner{
     display: flex;
     justify-content: center;
+}
+.recipe-img{
+    width: 300px;
+}
+.title-recipe{
+    color: #84BD00;
+    font-family: Montez;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.like-block{
+    display: flex;
 }

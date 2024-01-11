@@ -33,19 +33,12 @@ const Login = () => {
             <div className="reg_card">
               <h2 className="fw-bold mb-5">Войти</h2>
               <form>
-                <div className="form-outline">
-                  <input type="email" id="" className="form-control" onChange={handleChange} />
-                  <label className="form-label">
-                    Email 
-                  </label>
-                </div>
-
-                <div className="form-outline">
-                  <input type="password" id="" className="form-control"  onChange={handleChange}/>
-                  <label className="form-label">
-                    Пароль
-                  </label>
-                </div>
+              <div className="form-outline">
+                      <input type="email" id="" placeholder='Email' className="form-control"  onChange={handleChange}/>
+                    </div>
+                    <div className="form-outline">
+                      <input type="password" id="" placeholder='Пароль' className="form-control" onChange={handleChange}/>
+                    </div>
                 
                 <button type="submit" className="btn-primary" onClick={handleSubmit}>
                   Войти

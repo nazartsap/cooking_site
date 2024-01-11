@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import RecipeCard from './RecipeCard';
 import popularRecipesData from '../services/recipesData';
-
+import '../styles/Recipe.css'
 const Recipe = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [popularRecipes] = useState(popularRecipesData)
