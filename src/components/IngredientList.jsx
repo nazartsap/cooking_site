@@ -37,6 +37,7 @@ const Ingredient = ({ name, onSelect }) => {
 const IngredientList = ({ onSelect }) => {
   const [ingredients, setIngredients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [visibleIngredients, setVisibleIngredients] = useState(20);
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -51,14 +52,18 @@ const IngredientList = ({ onSelect }) => {
     fetchIngredients();
   }, []);
 
-  const filteredIngredients = ingredients.filter((ingredient) =>
-    ingredient.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredIngredients = ingredients
+  .filter((ingredient) => ingredient.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  .slice(0, visibleIngredients); // Используйте slice для отображения только нужного количества ингредиентов
 
-  return (
-    <div className='ingredient-block'>
-      <h2 className='hader'>Ингредиенты</h2>
-      <div className='input-find-ingredient'>
+const showMoreIngredients = () => {
+  setVisibleIngredients((prevVisibleIngredients) => prevVisibleIngredients + 20);
+};
+
+return (
+  <div className='ingredient-block'>
+    <h2 className='hader'>Ингредиенты</h2>
+    <div className='input-find-ingredient'>
       <div className="form__group field">
         <input
           type="text"
@@ -70,14 +75,17 @@ const IngredientList = ({ onSelect }) => {
           onChange={(e) => setSearchTerm(e.target.value)} />
         <label for="name" className="form__label">Поиск </label>
       </div>
-      </div>
-      <div className='ingredient-list'>
-        {filteredIngredients.map((ingredient) => (
-          <Ingredient key={ingredient._id} name={ingredient.name} onSelect={onSelect} />
-        ))}
-      </div>
     </div>
-  );
+    <div className='ingredient-list'>
+      {filteredIngredients.map((ingredient) => (
+        <Ingredient key={ingredient._id} name={ingredient.name} onSelect={onSelect} />
+      ))}
+    </div>
+    {visibleIngredients < ingredients.length && (
+      <button onClick={showMoreIngredients}>Показать еще</button>
+    )}
+  </div>
+);
 };
 
 export default IngredientList;
