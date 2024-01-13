@@ -2,23 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/RecipeCard.css';
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ id, name, instructions, imageUrl, likes }) => {
   const maxDescriptionLength = 50;
-  const truncatedDescription = recipe.description.slice(0, maxDescriptionLength);
+  const truncatedDescription = instructions ? instructions.slice(0, maxDescriptionLength) : '';
   return (
     <div className="recipe-card">
       <div className='recipe-img-contaner'>
-        <img className='recipe-img' src={recipe.img} alt={recipe.title} />
+        <img className='recipe-img' src={imageUrl} alt={name} />
       </div>
-      <h3 className='title-recipe'>{recipe.title}</h3>
+      <h3 className='title-recipe'>{name}</h3>
       <div className='recipe-des'>
       <p>{truncatedDescription}...</p>
         <div className='like-block'>
         <img className='like-img' src='/assets/like.svg' alt='no' />
-        <p>{recipe.like}</p>
+        <p>{likes}</p>
         </div>
       </div>
-      <Link to={`/recipes/${recipe.id}`}>Подробнее</Link>
+      <Link to={`/recipes/${id}`}>Подробнее</Link>
     </div>
   );
 };

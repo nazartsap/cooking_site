@@ -3,10 +3,10 @@ import { useDrag } from 'react-dnd';
 import axios from 'axios';
 import '../styles/Home.css';
 
-const Ingredient = ({ name, onSelect }) => {
+const Ingredient = ({ id, name, onSelect }) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'INGREDIENT',
-    item: { name },
+    item: { id, name },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -15,7 +15,7 @@ const Ingredient = ({ name, onSelect }) => {
   return (
     <div
       className='ingredient-item'
-      onClick={() => onSelect(name)}
+      onClick={() => onSelect(id, name)}
       ref={drag}
       style={{
         display: 'flex',
@@ -28,11 +28,11 @@ const Ingredient = ({ name, onSelect }) => {
         borderRadius: '20px',
         backgroundColor: '#acc4cc',
       }}
-    >
-      {name}
-    </div>
-  );
-};
+      >
+        {name}
+      </div>
+    );
+  };
 
 const IngredientList = ({ onSelect }) => {
   const [ingredients, setIngredients] = useState([]);
@@ -78,7 +78,7 @@ return (
     </div>
     <div className='ingredient-list'>
       {filteredIngredients.map((ingredient) => (
-        <Ingredient key={ingredient._id} name={ingredient.name} onSelect={onSelect} />
+        <Ingredient key={ingredient._id} id={ingredient._id} name={ingredient.name} onSelect={onSelect} />
       ))}
     </div>
     {visibleIngredients < ingredients.length && (
