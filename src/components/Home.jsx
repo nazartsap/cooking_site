@@ -5,13 +5,13 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import IngredientList from './IngredientList';
 import RecipeList from './RecipeList';
 import PopularRecipes from './PopularRecipes';
-import popularRecipesData from '../services/recipesData';
+import recipesData from '../services/recipesData';
 import ingredientData from '../services/ingredients';
 import '../styles/Home.css';
 const Home = () => {
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [recipes, setRecipes] = useState([]);
-  const [popularRecipes, setPopularRecipes] = useState(popularRecipesData);
+  const [popularRecipes, setPopularRecipes] = useState(recipesData);
 
   
 

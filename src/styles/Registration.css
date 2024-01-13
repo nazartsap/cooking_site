@@ -7,6 +7,7 @@
 .reg_card{
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-top: -100px;
     background: hsla(0, 0%, 100%, 0.8);
     backdrop-filter: blur(30px);
@@ -43,13 +44,85 @@
     margin-bottom: 2%;
 }
 .btn-primary{
-    background-color: #8dd4d2;
+    background-color: #acc4cc;
+    font-family: 'Noto Sans', sans-serif;
     border: 0;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
     width: 470px;
     height: 36px;
+    margin-top: 5%;
 }
 .form-check{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     margin-bottom: 2%;
 }
+
+.fw-bold{
+    font-family: 'Noto Sans', sans-serif;
+}
+
+
+
+
+
+
+
+.form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+  }
+  
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid gray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: rgb(0, 0, 0);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  
+    &::placeholder {
+      color: transparent;
+    }
+  
+    &:placeholder-shown ~ .form__label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+    }
+  }
+  
+  .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: gray;
+  }
+  
+  .form__field:focus {
+    ~ .form__label {
+      position: absolute;
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: primary;
+      font-weight:700;    
+    }
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, primary,secondary);
+    border-image-slice: 1;
+  }
+  /* reset input */
+  .form__field{
+    &:required,&:invalid { box-shadow:none; }
+  }

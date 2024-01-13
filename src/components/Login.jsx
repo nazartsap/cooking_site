@@ -25,50 +25,56 @@ const Login = () => {
   };
   return (
     <div>
-    <section className="text-center">
-      <div className="background"></div>
-      <div className="card">
-        <div className="card-r">
-          <div className="row_all">
-            <div className="reg_card">
-              <h2 className="fw-bold mb-5">Войти</h2>
-              <form>
-              <div className="form-outline">
-                      <input type="email" id="" placeholder='Email' className="form-control"  onChange={handleChange}/>
-                    </div>
-                    <div className="form-outline">
-                      <input type="password" id="" placeholder='Пароль' className="form-control" onChange={handleChange}/>
-                    </div>
-                
-                <button type="submit" className="btn-primary" onClick={handleSubmit}>
-                  Войти
-                </button>
+      <section className="text-center">
+        <div className="background"></div>
+        <div className="card">
+          <div className="card-r">
+            <div className="row_all">
+              <div className="reg_card">
+                <h2 className="fw-bold">Войти</h2>
+                <form>
+                  <div className="form-outline">
+                    <div className="form__group field">
+                    <input type="email" className="form__field" placeholder="Email" name="email" id='email' hange={handleChange} />
+                    <label for="name" className="form__label">Email</label>
+                  </div>
+                  </div>
+                  <div className="form-outline">
+                  <div className="form__group field">
+                    <input type="email" className="form__field" placeholder="Пароль" name="password" id='password' hange={handleChange} />
+                    <label for="password" className="form__label">Пароль</label>
+                  </div>
+                  </div>
 
-                <div className="text-center">
-                  <p>войти с помощью:</p>
-                  <button type="button" className="btn-link">
-                    <i className="facebook"></i>
+                  <button type="submit" className="btn-primary" onClick={handleSubmit}>
+                    Войти
                   </button>
 
-                  <button type="button" className="btn-link">
-                    <i className="google"></i>
-                  </button>
+                  <div className="text-center">
+                    <p>войти с помощью:</p>
+                    <button type="button" className="btn-link">
+                      <i className="facebook"></i>
+                    </button>
 
-                  <button type="button" className="btn-link">
-                    <i className="twitter"></i>
-                  </button>
+                    <button type="button" className="btn-link">
+                      <i className="google"></i>
+                    </button>
 
-                  <button type="button" className="btn-link">
-                    <i className="github"></i>
-                  </button>
-                </div>
-              </form>
+                    <button type="button" className="btn-link">
+                      <i className="twitter"></i>
+                    </button>
+
+                    <button type="button" className="btn-link">
+                      <i className="github"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
   );
 };
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import RecipeCard from './RecipeCard';
-import popularRecipesData from '../services/recipesData';
+import recipesData from '../services/recipesData';
 import '../styles/Recipe.css'
 const Recipe = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [popularRecipes] = useState(popularRecipesData)
+  const [recipes] = useState(recipesData)
   return (
     <div>
       <h2 className='hader'>Рецепты</h2>
@@ -18,7 +18,7 @@ const Recipe = () => {
         <button>Искать</button>
       </div>
       <div className="recipe-cards-container">
-        {popularRecipes.map((recipe, index) => (
+        {recipes.map((recipe, index) => (
           <RecipeCard key={index} recipe={recipe} />
         ))}
       </div>

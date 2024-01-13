@@ -4,13 +4,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 1%;
-    background-color: #D9D9D9;
+    background-color: #acc4cc;
+    margin-bottom: 10px;
+    border-radius: 4px;
 }
 
 .nav-link{
     text-decoration: none;
     color: #000;
-    font-family: Apple Chancery, cursive;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -22,7 +24,7 @@
     text-align: center;
     text-decoration: none;
     color: #000;
-    font-family: Apple Chancery, cursive;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;

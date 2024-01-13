@@ -5,9 +5,17 @@ const RecipeList = ({ recipes, selectedIngredients }) => {
   return (
     <div className='recipe_list_block'>
       <h2 className='hader'>Рецепты</h2>
-      <h2>
-        <input className = 'find_placeholder' type="text" placeholder="Найди рецепты"  />
-      </h2>
+      <div className='input-find-ingredient'>
+      <div className="form__group field">
+        <input
+          type="text"
+          class="form__field"
+          placeholder="Поиск "
+          name="text"
+          id='text'/>
+        <label for="name" className="form__label">Поиск </label>
+      </div>
+      </div>
       <ul className='selected-ingredients-container'>
         {selectedIngredients.map((recipe, index) => (
           <li key={index}>{recipe}</li>

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../styles/RecipeCard.css';
 
 const RecipeCard = ({ recipe }) => {
+  const maxDescriptionLength = 50;
+  const truncatedDescription = recipe.description.slice(0, maxDescriptionLength);
   return (
     <div className="recipe-card">
       <div className='recipe-img-contaner'>
@@ -10,7 +12,7 @@ const RecipeCard = ({ recipe }) => {
       </div>
       <h3 className='title-recipe'>{recipe.title}</h3>
       <div className='recipe-des'>
-        <p>{recipe.description}</p>
+      <p>{truncatedDescription}...</p>
         <div className='like-block'>
         <img className='like-img' src='/assets/like.svg' alt='no' />
         <p>{recipe.like}</p>

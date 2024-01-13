@@ -26,7 +26,7 @@ const Ingredient = ({ name, onSelect }) => {
         border: '1px solid #000',
         padding: '8px',
         borderRadius: '20px',
-        backgroundColor: '#0ABAB5',
+        backgroundColor: '#acc4cc',
       }}
     >
       {name}
@@ -36,6 +36,7 @@ const Ingredient = ({ name, onSelect }) => {
 
 const IngredientList = ({ onSelect }) => {
   const [ingredients, setIngredients] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -50,11 +51,28 @@ const IngredientList = ({ onSelect }) => {
     fetchIngredients();
   }, []);
 
+  const filteredIngredients = ingredients.filter((ingredient) =>
+    ingredient.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className='ingredient-block'>
-      <h2 className='header'>Ингредиенты</h2>
+      <h2 className='hader'>Ингредиенты</h2>
+      <div className='input-find-ingredient'>
+      <div className="form__group field">
+        <input
+          type="text"
+          class="form__field"
+          placeholder="Поиск "
+          name="text"
+          id='text'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} />
+        <label for="name" className="form__label">Поиск </label>
+      </div>
+      </div>
       <div className='ingredient-list'>
-        {ingredients.map((ingredient) => (
+        {filteredIngredients.map((ingredient) => (
           <Ingredient key={ingredient._id} name={ingredient.name} onSelect={onSelect} />
         ))}
       </div>

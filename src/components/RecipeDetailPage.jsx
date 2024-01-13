@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
+import '../styles/RecipeDetailPage.css'
 const RecipeDetailPage = ({ recipes }) => {
   const { recipeId } = useParams();
   const selectedRecipe = recipes.find(recipe => recipe.id === parseInt(recipeId));
@@ -10,10 +10,10 @@ const RecipeDetailPage = ({ recipes }) => {
   }
 
   return (
-    <div>
-      <h2>{selectedRecipe.title}</h2>
+    <div className='recipe-cont'>
+      <h2 className='title-recipe-detail'>{selectedRecipe.title}</h2>
       <img src={selectedRecipe.img} alt={selectedRecipe.title} />
-      <p>{selectedRecipe.description}</p>
+      <p className='description-recipe-detail'>{selectedRecipe.description}</p>
       <p>Рейтинг: {selectedRecipe.rating}</p>
     </div>
   );
