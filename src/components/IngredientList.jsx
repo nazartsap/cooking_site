@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import axios from 'axios';
 import '../styles/Home.css';
+import apiUrl from '../config';
 
 const Ingredient = ({ id, name, onSelect }) => {
   const [{ isDragging }, drag] = useDrag({
@@ -42,7 +43,7 @@ const IngredientList = ({ onSelect }) => {
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
-        const response = await axios.get('https://important-cyan-sandals.cyclic.app/ingredients');
+        const response = await axios.get(`${apiUrl}/ingredients`);
         setIngredients(response.data);
       } catch (error) {
         console.error('Error fetching ingredients:', error);

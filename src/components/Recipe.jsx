@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RecipeCard from './RecipeCard';
 import '../styles/Recipe.css';
+import apiUrl from '../config';
 
 const Recipe = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,7 +11,7 @@ const Recipe = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get('https://important-cyan-sandals.cyclic.app/recipes');
+        const response = await axios.get(`${apiUrl}/recipes`);
         setRecipes(response.data);
       } catch (error) {
         console.error('Error fetching recipes:', error);

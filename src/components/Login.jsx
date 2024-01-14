@@ -1,6 +1,7 @@
 import '../styles/Registration.css';
 import React, { useState } from 'react';
 import axios from 'axios';
+import apiUrl from '../config';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://important-cyan-sandals.cyclic.app/auth/login', formData);
+      const response = await axios.post(`${apiUrl}/auth/login`, formData);
       console.log(response.data);
       // Handle success, maybe store the token in local storage or redirect to a dashboard
     } catch (error) {
