@@ -20,20 +20,35 @@ const Recipe = () => {
     fetchRecipes();
   }, []); // Пустой массив зависимостей означает, что useEffect будет вызываться только при монтировании компонента
 
+  // Обработчик изменения значения в поле ввода
+  const handleSearchTermChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Функция для фильтрации рецептов по введенному термину
+  const filteredRecipes = recipes.filter((recipe) => {
+    return recipe.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   return (
-    <div>
+    <div className='recipe-container'>
       <h2 className='header'>Рецепты</h2>
-      <div>
-        <input
-          type="text"
-          placeholder="Поиск по рецептам"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button>Искать</button>
+      <div className='input-find-ingredient'>
+        <div className="form__group field">
+          <input
+            type="text"
+            className="form__field"
+            placeholder="Поиск"
+            name="text"
+            id='text'
+            value={searchTerm}
+            onChange={handleSearchTermChange}
+          />
+          <label htmlFor="name" className="form__label">Поиск</label>
+        </div>
       </div>
       <div className="recipe-cards-container">
-        {recipes.map((recipe) => (
+        {filteredRecipes.map((recipe) => (
           <RecipeCard key={recipe.id} id={recipe.id} name={recipe.name} instructions={recipe.instructions} imageUrl={recipe.imageUrl} likes={recipe.likes}/>
         ))}
       </div>

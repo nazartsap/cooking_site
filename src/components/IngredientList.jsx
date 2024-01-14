@@ -67,13 +67,13 @@ return (
       <div className="form__group field">
         <input
           type="text"
-          class="form__field"
+          className="form__field"
           placeholder="Поиск "
           name="text"
           id='text'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} />
-        <label for="name" className="form__label">Поиск </label>
+        <label htmlFor="name" className="form__label">Поиск </label>
       </div>
     </div>
     <div className='ingredient-list'>

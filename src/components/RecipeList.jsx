@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import '../styles/Home.css';
 import RecipeCard from './RecipeCard';
 
-const RecipeList = ({ recipes, selectedIngredients, searchTerm, onSearchTermChange }) => {
+const RecipeList = ({ recipes, selectedIngredients, searchTerm, onSearchTermChange, onIngredientRemove }) => {
   const [localSearchTerm, setLocalSearchTerm] = useState('');
 
   const handleLocalSearchTermChange = (newTerm) => {
     setLocalSearchTerm(newTerm);
     onSearchTermChange(newTerm);
+  };
+
+  const handleIngredientRemove = (ingredientId) => {
+    onIngredientRemove(ingredientId);
   };
 
   return (
@@ -29,7 +33,9 @@ const RecipeList = ({ recipes, selectedIngredients, searchTerm, onSearchTermChan
       </div>
       <ul className='selected-ingredients-container'>
         {selectedIngredients.map((ingredient) => (
-          <li key={ingredient.id}>{ingredient.name}</li>
+          <li key={ingredient.id} onClick={() => handleIngredientRemove(ingredient.id)}>
+            {ingredient.name}
+          </li>
         ))}
       </ul>
       <div className="recipe-list">

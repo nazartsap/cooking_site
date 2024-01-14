@@ -30,6 +30,13 @@ const Home = () => {
     generateRecipes(selectedIngredients, newTerm);
   };
 
+  const handleIngredientRemove = (ingredientId) => {
+    setSelectedIngredients(prevIngredients =>
+      prevIngredients.filter(ingredient => ingredient.id !== ingredientId)
+    );
+    generateRecipes(selectedIngredients, searchTerm);
+  };
+
   const generateRecipes = (selectedIngredients, search = '') => {
     console.log(selectedIngredients);
     const encodedIngredients = selectedIngredients.map(ingredient => {
@@ -55,7 +62,7 @@ const Home = () => {
       <div className='block'>
         {/* Ваши компоненты */}
         <IngredientList onSelect={handleIngredientSelect} />
-        <RecipeList recipes={recipes} selectedIngredients={selectedIngredients} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} />
+        <RecipeList recipes={recipes} selectedIngredients={selectedIngredients} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange}  onIngredientRemove={handleIngredientRemove} />
         <PopularRecipes popularRecipes={popularRecipes} />
       </div>
     </DndProvider>
