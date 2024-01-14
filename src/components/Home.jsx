@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import apiUrl from '../config';
 
 import IngredientList from './IngredientList';
 import RecipeList from './RecipeList';
@@ -45,7 +46,7 @@ const Home = () => {
     const queryString = `ingredients=${encodedIngredients.join(',')}`;
     console.log(queryString);
   
-    axios.get(`https://important-cyan-sandals.cyclic.app/recipes/searchByIngredients?${queryString}`)
+    axios.get(`${apiUrl}/recipes/searchByIngredients?${queryString}`)
       .then((response) => setRecipes(response.data))
       .catch((error) => console.error('Error fetching recipes:', error));
   };

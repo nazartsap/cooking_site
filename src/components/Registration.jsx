@@ -1,6 +1,7 @@
 import '../styles/Registration.css';
 import React, { useState } from 'react';
 import axios from 'axios';
+import apiUrl from '../config';
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://important-cyan-sandals.cyclic.app/auth/signup', {
+      const response = await axios.post(`${apiUrl}/auth/signup`, {
         name: formData.name,
         surname: formData.surname,
         email: formData.email,
