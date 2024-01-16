@@ -10,7 +10,7 @@ import Registration from './components/Registration';
 import Login from './components/Login';
 import VerificationCode from './components/VerificationCode';
 import popularRecipesData from './services/recipesData';
-
+import CreateRecipes from './components/CreateRecipes';
 const App = () => {
   const isRegistrationPage = window.location.pathname === '/registration';
   const isLoginPage = window.location.pathname === '/login';
@@ -23,6 +23,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/recipe" element={<Recipe />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/create_recipes" element={<CreateRecipes />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />

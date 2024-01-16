@@ -13,7 +13,7 @@ const Navbar = () => {
       <NavLink to="/recipe" className="center-links">
         Рецепты
       </NavLink>
-      <NavLink to="/" className="center-links">
+      <NavLink to="/create_recipes" className="center-links">
         Создать свои
       </NavLink>
       <NavLink to="/help" className="center-links">
