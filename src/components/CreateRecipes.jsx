@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
-import '../styles/CreateRecipes.css'
+import '../styles/CreateRecipes.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import recipesData from '../services/recipesData'
+import recipesData from '../services/recipesData';
 import IngredientList from '../services/IngredientList_for_Create';
 import apiUrl from '../config';
-import axios from 'axios'
-const CreateRecipes= () =>{
+import axios from 'axios';
+
+const CreateRecipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [popularRecipes, setPopularRecipes] = useState(recipesData);
   const [searchTerm, setSearchTerm] = useState('');
   const [nameRecipe, setRecipeName] = useState('');
   const [instrtutionRecipe, setInstructionRecipe] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState([]);
-  
+
   const handleIngredientSelect = (ingredientId, ingredientName) => {
     setSelectedIngredients(prevIngredients => [
-      ...prevIngredients, 
+      ...prevIngredients,
       { id: ingredientId, name: ingredientName }
     ]);
     generateRecipes([...selectedIngredients, ingredientId]);
   };
+
   const setItam = (e) => {
     setRecipeName(e.target.value);
     console.log(nameRecipe);
@@ -47,35 +49,62 @@ const CreateRecipes= () =>{
     console.log(selectedIngredients);
     const encodedIngredients = selectedIngredients.map(ingredient => {
       if (typeof ingredient === 'string') {
-        // Если элемент является строкой, это означает, что это первый выбранный ингредиент
         return encodeURIComponent(ingredient);
       } else {
-        // Если элемент является объектом, это означает, что это второй (или последующий) выбранный ингредиент
         return encodeURIComponent(ingredient.id);
       }
     });
-  
+
     const queryString = `ingredients=${encodedIngredients.join(',')}`;
     console.log(queryString);
-  
+
     axios.get(`${apiUrl}/recipes/searchByIngredients?${queryString}`)
       .then((response) => setRecipes(response.data))
       .catch((error) => console.error('Error fetching recipes:', error));
   };
 
+  const handleCreateRecipe = async () => {
+    try {
+      // Подготовка данных для отправки на сервер
+      const newRecipe = {
+        name: nameRecipe,
+        instructions: instrtutionRecipe,
+        ingredients: selectedIngredients.map(ingredient => ingredient.id),
+      };
+
+      // Отправка POST-запроса на сервер
+      const response = await axios.post(`${apiUrl}/recipes`, newRecipe);
+
+      // Обработка успешного ответа, например, очистка формы
+      console.log('Recipe created successfully:', response.data);
+      setRecipeName('');
+      setInstructionRecipe('');
+      setSelectedIngredients([]);
+
+      // Можете также выполнить перенаправление или выполнить другие действия по вашему выбору
+    } catch (error) {
+      // Обработка ошибки, например, отображение сообщения об ошибке
+      console.error('Error creating recipe:', error.response?.data?.message || 'Unknown error');
+    }
+  };
+
   return (
     <div className='create-block'>
-        <h1>Создать свои рецепты</h1>
+      <h1>Создать свои рецепты</h1>
       <div className='inputs'>
-        <input type = 'text' placeholder = 'Название'   onChange={(e) => setItam(e)}></input>
-        <input placeholder='Инструкции'  onChange={(e) => setInstructions(e)}></input>
+        <input type='text' placeholder='Название' onChange={(e) => setItam(e)} />
+        <input placeholder='Инструкции' onChange={(e) => setInstructions(e)} />
       </div>
       <DndProvider backend={HTML5Backend}>
-      <div className='block'>
-        <IngredientList onSelect={handleIngredientSelect} selectedIngredients={selectedIngredients}  onIngredientRemove={handleIngredientRemove}/>
-      </div>
-    </DndProvider>
+        <div className='block'>
+          <IngredientList onSelect={handleIngredientSelect} selectedIngredients={selectedIngredients} onIngredientRemove={handleIngredientRemove} />
+        </div>
+      </DndProvider>
+      <button className='btn-primary' onClick={handleCreateRecipe}>
+        Создать рецепт
+      </button>
     </div>
   );
-}
+};
+
 export default CreateRecipes;
