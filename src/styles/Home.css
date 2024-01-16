@@ -53,9 +53,10 @@
   li{
     width: 100px;
     height: 60px;
+    font-family: 'Noto Sans', sans-serif;
     background-color: #acc4cc;
     border: 1px solid #000;
-    border-radius: 50%;
+    border-radius: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,4 +165,18 @@ body{
     display: flex;
     justify-content: center;
     margin-bottom: 10%;
+  }
+  .btn-show_more{
+    padding: 2%;
+    margin-top: 5%;
+    border-radius: 11px;
+    background-color: #acc4cc;
+  }
+  .stratch{
+    background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2), transparent);
+  border: 0;
+  height: 1px;
+  margin: 22px 0 22px 0;box-sizing:
+  content-box;
+  display: block;
   }

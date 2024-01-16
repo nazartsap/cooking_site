@@ -86,14 +86,16 @@ return (
           onChange={(e) => setSearchTerm(e.target.value)} />
         <label htmlFor="name" className="form__label">Поиск </label>
       </div>
+  
     </div>
     <div className='ingredient-list'>
       {filteredIngredients.map((ingredient) => (
         <Ingredient key={ingredient._id} id={ingredient._id} name={ingredient.name} onSelect={onSelect} />
       ))}
     </div>
+    <div className='stratch'></div>
     {visibleIngredients < ingredients.length && (
-      <button onClick={showMoreIngredients}>Показать еще</button>
+      <button className='btn-show_more' onClick={showMoreIngredients}>Показать еще</button>
     )}
   </div>
 );

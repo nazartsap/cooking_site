@@ -43,7 +43,7 @@ body{
 .selected-ingredients-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; 
+    justify-content: center;
   }
   
   li{
@@ -51,7 +51,7 @@ body{
     height: 60px;
     background-color: #acc4cc;
     border: 1px solid #000;
-    border-radius: 50%;
+    border-radius: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,3 +65,22 @@ body{
     display: flex;
     
 }
+.btn-show_more{
+    padding: 0.5%;
+    margin-top: 5%;
+    border-radius: 11px;
+    background-color: #acc4cc;
+  }
+  .stratch{
+    background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2), transparent);
+  border: 0;
+  height: 1px;
+  margin: 22px 0 22px 0;box-sizing:
+  content-box;
+  display: block;
+  }
+  .input-find-ingredient-for{
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+  }

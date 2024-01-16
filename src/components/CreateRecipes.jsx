@@ -67,8 +67,28 @@ const CreateRecipes= () =>{
     <div className='create-block'>
         <h1>Создать свои рецепты</h1>
       <div className='inputs'>
-        <input type = 'text' placeholder = 'Название'   onChange={(e) => setItam(e)}></input>
-        <input placeholder='Инструкции'  onChange={(e) => setInstructions(e)}></input>
+        <div className="form__group field">
+          <input
+            type="text"
+            className="form__field"
+            placeholder="Название "
+            name="text"
+            id='text'
+            onChange={(e) => setItam(e)}
+          />
+          <label htmlFor="name" className="form__label">Название </label>
+        </div>
+        <div className="form__group field">
+          <input
+            type="text"
+            className="form__field"
+            placeholder="Инструкции "
+            name="text"
+            id='text'
+            onChange={(e) => setInstructions(e)}
+          />
+          <label htmlFor="name" className="form__label">Инструкции </label>
+        </div>
       </div>
       <DndProvider backend={HTML5Backend}>
       <div className='block'>
