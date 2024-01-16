@@ -10,7 +10,15 @@ const Login = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.type]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLoginSuccess = (token) => {
+    // Сохраняем токен в cookie
+    document.cookie = `token=${token}; path=/;`;
+
+    // Перенаправляем на нужную страницу, например, профиль
+    window.location.href = '/';
   };
 
   const handleSubmit = async (e) => {
@@ -18,12 +26,18 @@ const Login = () => {
     try {
       const response = await axios.post(`${apiUrl}/auth/login`, formData);
       console.log(response.data);
-      // Handle success, maybe store the token in local storage or redirect to a dashboard
+
+      // Проверяем, есть ли в ответе свойство "token"
+      if (response.data && response.data.token) {
+        handleLoginSuccess(response.data.token);
+      } else {
+        console.error('Login failed: Invalid response');
+      }
     } catch (error) {
-      console.error('Login failed:', error.response.data.message);
-      // Handle error, show an error message to the user
+      console.error('Login failed:', error.response?.data?.message || 'Unknown error');
     }
   };
+
   return (
     <div>
       <section className="text-center">
@@ -33,21 +47,39 @@ const Login = () => {
             <div className="row_all">
               <div className="reg_card">
                 <h2 className="fw-bold">Войти</h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="form-outline">
                     <div className="form__group field">
-                    <input type="email" className="form__field" placeholder="Email" name="email" id='email' hange={handleChange} />
-                    <label for="name" className="form__label">Email</label>
-                  </div>
+                      <input
+                        type="email"
+                        className="form__field"
+                        placeholder="Email"
+                        name="email"
+                        id="email"
+                        onChange={handleChange}
+                      />
+                      <label htmlFor="email" className="form__label">
+                        Email
+                      </label>
+                    </div>
                   </div>
                   <div className="form-outline">
-                  <div className="form__group field">
-                    <input type="email" className="form__field" placeholder="Пароль" name="password" id='password' hange={handleChange} />
-                    <label for="password" className="form__label">Пароль</label>
-                  </div>
+                    <div className="form__group field">
+                      <input
+                        type="password"
+                        className="form__field"
+                        placeholder="Пароль"
+                        name="password"
+                        id="password"
+                        onChange={handleChange}
+                      />
+                      <label htmlFor="password" className="form__label">
+                        Пароль
+                      </label>
+                    </div>
                   </div>
 
-                  <button type="submit" className="btn-primary" onClick={handleSubmit}>
+                  <button type="submit" className="btn-primary">
                     Войти
                   </button>
 

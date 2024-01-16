@@ -1,3 +1,3 @@
-const apiUrl = 'https://important-cyan-sandals.cyclic.app';
+const apiUrl = 'http://localhost:3000';
 
 export default apiUrl;

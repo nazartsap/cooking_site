@@ -1,5 +1,6 @@
 import '../styles/Registration.css';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import apiUrl from '../config';
 
@@ -11,8 +12,11 @@ const Registration = () => {
     password: '',
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.type]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData)
   };
 
   const handleSubmit = async (e) => {
@@ -24,9 +28,11 @@ const Registration = () => {
         email: formData.email,
         password: formData.password,
       });
-
+       
+      console.log(formData)
       console.log(response.data);
       // Handle success, maybe redirect to login or show a success message
+      navigate(`/verify/${formData.email}`);
     } catch (error) {
       console.error('Registration failed:', error.response.data.message);
       // Handle error, show an error message to the user
@@ -46,26 +52,26 @@ const Registration = () => {
                   <div className="name-sername">
                     <div className="form-outline">
                       <div className="form__group field">
-                        <input type="name" className="form__field" placeholder="Имя" name="name" id='name' hange={handleChange} />
+                      <input type="text" className="form__field" placeholder="Имя" name="name" id='name' onChange={handleChange} />
                         <label for="name" className="form__label">Имя</label>
                       </div>
                     </div>
                     <div className="form-outline">
                       <div className="form__group field">
-                        <input type="sername" className="form__field" placeholder="Фамилия" name="sername" id='sername' hange={handleChange} />
-                        <label for="name" className="form__label">Фамилия</label>
+                      <input type="text" className="form__field" placeholder="Фамилия" name="surname" id='surname' onChange={handleChange} />
+                        <label for="surname" className="form__label">Фамилия</label>
                       </div>
                     </div>
                   </div>
                   <div className="form-outline">
                     <div className="form__group field">
-                      <input type="email" className="form__field" placeholder="Email" name="email" id='email' hange={handleChange} />
-                      <label for="name" className="form__label">Email</label>
+                    <input type="email" className="form__field" placeholder="Email" name="email" id='email' onChange={handleChange} />
+                      <label for="email" className="form__label">Email</label>
                     </div>
                   </div>
                   <div className="form-outline">
                     <div className="form__group field">
-                      <input type="email" className="form__field" placeholder="Пароль" name="password" id='password' hange={handleChange} />
+                    <input type="password" className="form__field" placeholder="Пароль" name="password" id='password' onChange={handleChange} />
                       <label for="password" className="form__label">Пароль</label>
                     </div>
                   </div>
@@ -83,7 +89,7 @@ const Registration = () => {
                     </label>
                   </div>
 
-                  <button type="submit" className="btn-primary" onClick={handleSubmit}>
+                  <button type="submit" className="btn-primary" onClick={handleSubmit} cur>
                     Войти
                   </button>
 
