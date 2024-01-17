@@ -26,8 +26,9 @@ const Ingredient = ({ id, name, onSelect}) => {
         marginBottom: '8px',
         border: '1px solid #000',
         padding: '8px',
-        borderRadius: '20px',
+        borderRadius: '11px',
         backgroundColor: '#acc4cc',
+        gap: '2px',
       }}
       >
         {name}
@@ -75,6 +76,7 @@ return (
           </li>
         ))}
       </ul>
+      <div className='from_fild'>
       <div className="form__group field">
         <input
           type="text"
@@ -86,14 +88,16 @@ return (
           onChange={(e) => setSearchTerm(e.target.value)} />
         <label htmlFor="name" className="form__label">Поиск </label>
       </div>
+      </div>
     </div>
     <div className='ingredient-list'>
       {filteredIngredients.map((ingredient) => (
         <Ingredient key={ingredient._id} id={ingredient._id} name={ingredient.name} onSelect={onSelect} />
       ))}
     </div>
+    <div className='stratch'></div>
     {visibleIngredients < ingredients.length && (
-      <button onClick={showMoreIngredients}>Показать еще</button>
+      <button className='btn-show_more' onClick={showMoreIngredients}>Показать еще</button>
     )}
   </div>
 );

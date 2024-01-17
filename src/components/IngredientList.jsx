@@ -26,8 +26,9 @@ const Ingredient = ({ id, name, onSelect }) => {
         marginBottom: '8px',
         border: '1px solid #000',
         padding: '8px',
-        borderRadius: '20px',
+        borderRadius: '11px',
         backgroundColor: '#acc4cc',
+        gap: '2px',
       }}
       >
         {name}
@@ -82,8 +83,9 @@ return (
         <Ingredient key={ingredient._id} id={ingredient._id} name={ingredient.name} onSelect={onSelect} />
       ))}
     </div>
+    <div className='stratch'></div>
     {visibleIngredients < ingredients.length && (
-      <button onClick={showMoreIngredients}>Показать еще</button>
+      <button className='btn-show_more' onClick={showMoreIngredients}>Показать еще</button>
     )}
   </div>
 );

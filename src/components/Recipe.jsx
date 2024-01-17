@@ -50,7 +50,7 @@ const Recipe = () => {
       </div>
       <div className="recipe-cards-container">
         {filteredRecipes.map((recipe) => (
-          <RecipeCard key={recipe.id} id={recipe.id} name={recipe.name} instructions={recipe.instructions} imageUrl={recipe.imageUrl} likes={recipe.likes}/>
+          <RecipeCard key={recipe._id} id={recipe._id} name={recipe.name} instructions={recipe.instructions} imageUrl={recipe.imageUrl} likes={recipe.likes}/>
         ))}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
 import Help from './components/Help';
@@ -9,11 +9,26 @@ import RecipeDetailPage from './components/RecipeDetailPage';
 import Registration from './components/Registration';
 import Login from './components/Login';
 import VerificationCode from './components/VerificationCode';
-import popularRecipesData from './services/recipesData';
 import CreateRecipes from './components/CreateRecipes';
+import axios from 'axios';
+import apiUrl from './config';
 const App = () => {
   const isRegistrationPage = window.location.pathname === '/registration';
   const isLoginPage = window.location.pathname === '/login';
+  /*const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/recipes`);
+        setRecipes(response.data);
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
+    };
+
+    fetchRecipes();
+  }, []); // Пустой массив зависимостей означает, что useEffect будет вызываться только при монтировании компонента */
 
   return (
     <div className="App">
@@ -33,7 +48,7 @@ const App = () => {
           />
           <Route
             path="/recipes/:recipeId"
-            element={<RecipeDetailPage recipes={popularRecipesData} />}
+            element={<RecipeDetailPage/>}
           />
         </Routes>
       </Router>

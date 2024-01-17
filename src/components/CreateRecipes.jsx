@@ -93,14 +93,14 @@ const CreateRecipes = () => {
       <h1>Создать свои рецепты</h1>
       <div className='inputs'>
         <input type='text' placeholder='Название' onChange={(e) => setItam(e)} />
-        <input placeholder='Инструкции' onChange={(e) => setInstructions(e)} />
+        <textarea placeholder='Инструкции' rows="4" cols="80" id="TITLE" onChange={(e) => setInstructions(e)} />
       </div>
       <DndProvider backend={HTML5Backend}>
         <div className='block'>
           <IngredientList onSelect={handleIngredientSelect} selectedIngredients={selectedIngredients} onIngredientRemove={handleIngredientRemove} />
         </div>
       </DndProvider>
-      <button className='btn-primary' onClick={handleCreateRecipe}>
+      <button className='btn-primary_create-recipe' onClick={handleCreateRecipe}>
         Создать рецепт
       </button>
     </div>

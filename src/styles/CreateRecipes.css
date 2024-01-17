@@ -1,6 +1,7 @@
 .create-block{
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: white;
     
 }
@@ -10,7 +11,8 @@
     padding-left: 10%;
     padding-right: 10%;
 }
-.btn-primary{
+.btn-primary_create-recipe{
+    
     background-color: #acc4cc;
     font-family: 'Noto Sans', sans-serif;
     border: 0;

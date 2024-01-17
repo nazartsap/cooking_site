@@ -40,7 +40,7 @@ const RecipeList = ({ recipes, selectedIngredients, searchTerm, onSearchTermChan
       </ul>
       <div className="recipe-list">
         {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} id={recipe.id} name={recipe.name} instructions={recipe.instructions} imageUrl={recipe.imageUrl} likes={recipe.likes}/>
+          <RecipeCard key={recipe._id} id={recipe._id} name={recipe.name} instructions={recipe.instructions} imageUrl={recipe.imageUrl} likes={recipe.likes} ingredients={recipe.ingredients}/>
         ))}
       </div>
     </div>

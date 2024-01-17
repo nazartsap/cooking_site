@@ -28,7 +28,18 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    
 }
 .like-block{
     display: flex;
+}
+
+.link-style {
+    text-decoration: none;
+    color: inherit; 
+}
+    
+.link-style:hover {
+text-decoration: none;
+color: inherit;
 }
