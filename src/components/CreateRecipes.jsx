@@ -14,6 +14,7 @@ const CreateRecipes = () => {
   const [nameRecipe, setRecipeName] = useState('');
   const [instrtutionRecipe, setInstructionRecipe] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleIngredientSelect = (ingredientId, ingredientName) => {
     setSelectedIngredients(prevIngredients => [
@@ -65,28 +66,46 @@ const CreateRecipes = () => {
 
   const handleCreateRecipe = async () => {
     try {
+      // Проверка наличия обязательных полей
+      if (!nameRecipe || !instrtutionRecipe) {
+        console.error('Name and instructions are required fields.');
+        return;
+      }
+  
       // Подготовка данных для отправки на сервер
-      const newRecipe = {
-        name: nameRecipe,
-        instructions: instrtutionRecipe,
-        ingredients: selectedIngredients.map(ingredient => ingredient.id),
-      };
+      const formData = new FormData();
+      formData.append('image', selectedImage);
+      formData.append('name', nameRecipe);
+      formData.append('instructions', instrtutionRecipe);
+  
+      // Добавление идентификаторов ингредиентов
+      selectedIngredients.forEach((ingredient, index) => {
+        formData.append(`ingredients[${index}]`, ingredient.id);
+      });
 
-      // Отправка POST-запроса на сервер
-      const response = await axios.post(`${apiUrl}/recipes`, newRecipe);
-
+      console.log(selectedImage)
+  
+      // Отправка POST-запроса на сервер с использованием FormData
+      const response = await axios.post(`${apiUrl}/recipes`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
       // Обработка успешного ответа, например, очистка формы
       console.log('Recipe created successfully:', response.data);
       setRecipeName('');
       setInstructionRecipe('');
       setSelectedIngredients([]);
-
+      setSelectedImage(null); // Очистка выбранного изображения
+  
       // Можете также выполнить перенаправление или выполнить другие действия по вашему выбору
     } catch (error) {
       // Обработка ошибки, например, отображение сообщения об ошибке
       console.error('Error creating recipe:', error.response?.data?.message || 'Unknown error');
     }
   };
+     
 
   return (
     <div className='create-block'>
@@ -94,6 +113,7 @@ const CreateRecipes = () => {
       <div className='inputs'>
         <input type='text' placeholder='Название' onChange={(e) => setItam(e)} />
         <textarea placeholder='Инструкции' rows="4" cols="80" id="TITLE" onChange={(e) => setInstructions(e)} />
+        <input type="file" onChange={(e) => setSelectedImage(e.target.files[0])} />
       </div>
       <DndProvider backend={HTML5Backend}>
         <div className='block'>
