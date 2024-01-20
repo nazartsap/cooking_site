@@ -32,8 +32,11 @@
 }
 .like-block{
     display: flex;
+    align-items: center;
 }
-
+img.like-img{
+    width: 20px;
+}
 .link-style {
     text-decoration: none;
     color: inherit; 

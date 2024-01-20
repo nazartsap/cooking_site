@@ -21,3 +21,12 @@
     height: 36px;
     margin-top: 5%;
 }
+.success-message{
+    display: flex;
+    background-color: white;
+    border-radius: 6px;
+    position: fixed;
+    top: 1%;
+    width: 20%;
+    padding: 5%;
+}

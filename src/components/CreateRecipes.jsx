@@ -15,6 +15,7 @@ const CreateRecipes = () => {
   const [instrtutionRecipe, setInstructionRecipe] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleIngredientSelect = (ingredientId, ingredientName) => {
     setSelectedIngredients(prevIngredients => [
@@ -98,7 +99,10 @@ const CreateRecipes = () => {
       setInstructionRecipe('');
       setSelectedIngredients([]);
       setSelectedImage(null); // Очистка выбранного изображения
-  
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
       // Можете также выполнить перенаправление или выполнить другие действия по вашему выбору
     } catch (error) {
       // Обработка ошибки, например, отображение сообщения об ошибке
@@ -123,6 +127,11 @@ const CreateRecipes = () => {
       <button className='btn-primary_create-recipe' onClick={handleCreateRecipe}>
         Создать рецепт
       </button>
+      {showSuccessMessage && (
+        <div className='success-message'>
+          Рецепт успешно создан!
+        </div>
+      )}
     </div>
   );
 };
