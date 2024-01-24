@@ -67,7 +67,7 @@ const handleIngredientRemove = (ingredientId) => {
 
 return (
   <div className='ingredient-block-for'>
-    <h2 className='hader'>Ингредиенты</h2>
+    <h2 className='heder-create-recipes'>Ингредиенты</h2>
     <div className='input-find-ingredient-for'>
     <ul className='selected-ingredients-container-for'>
         {selectedIngredients.map((ingredient) => (
