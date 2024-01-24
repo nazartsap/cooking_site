@@ -140,8 +140,8 @@ const CreateRecipes = () => {
         />
         <div className='stratch'></div>
         <h1 className='heder-create-recipes'>Фото готового блюда</h1>
-        <label for='images' class='drop-container' id='dropcontainer'>
-          <span class='drop-title'>Перетащите фотографии сюда</span>
+        <label htmlFor='images' className='drop-container' id='dropcontainer'>
+          <span className='drop-title'>Перетащите фотографии сюда</span>
           или
           <input
             type='file'
