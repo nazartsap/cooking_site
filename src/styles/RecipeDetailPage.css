@@ -22,5 +22,6 @@
     font-family: "PT Serif", sans-serif;
     margin-bottom: 60px;
     line-height: 35px;
-    break-inside: avoid; 
+    break-inside: avoid;
+    white-space: pre-line; 
 }

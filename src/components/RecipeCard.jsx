@@ -1,16 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios'; // Добавлен импорт Axios
+import axios from 'axios';
 import '../styles/RecipeCard.css';
 import apiUrl from '../config';
 import IngredientList from './IngredientList';
 
-const RecipeCard = ({ id, name, instructions, imageUrl, likes, ingredients }) => {
+const RecipeCard = ({
+  id,
+  name,
+  instructions,
+  imageUrl,
+  likes,
+  ingredients,
+}) => {
   const maxDescriptionLength = 50;
-  const truncatedDescription = instructions ? instructions.slice(0, maxDescriptionLength) : '';
+  const truncatedDescription = instructions
+    ? instructions.slice(0, maxDescriptionLength)
+    : '';
 
   const [isLiked, setIsLiked] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
   const [likesCount, setLikes] = useState(likes);
+
+  useEffect(() => {
+    const isFavoritedInLocalStorage = localStorage.getItem(`favorited-${id}`);
+    setIsFavorited(isFavoritedInLocalStorage === 'true');
+  }, [id]);  
 
   const handleLikeClick = async () => {
     try {
@@ -18,9 +33,8 @@ const RecipeCard = ({ id, name, instructions, imageUrl, likes, ingredients }) =>
 
       if (response.status === 201) {
         setIsLiked(!isLiked);
-        // Получаем обновленное количество лайков после успешного лайка
         const updatedLikes = await fetchUpdatedLikes();
-        setLikes(updatedLikes.likes); // Исправлено здесь
+        setLikes(updatedLikes.likes);
       } else {
         console.error('Failed to like recipe');
       }
@@ -29,32 +43,82 @@ const RecipeCard = ({ id, name, instructions, imageUrl, likes, ingredients }) =>
     }
   };
 
+  const getStoredAuthToken = () => {
+    const token = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('token='));
+    return token ? token.split('=')[1] : null;
+  };
+
+  const handleFavoriteClick = async () => {
+    try {
+      // Определяем, нужно ли добавить в избранное или удалить
+      const apiUrlEndpoint = isFavorited
+        ? `${apiUrl}/user/removeFromFavorites/${id}`
+        : `${apiUrl}/user/addToFavorites/${id}`;
+
+      const response = await axios({
+        method: isFavorited ? 'delete' : 'put',
+        url: apiUrlEndpoint,
+        headers: {
+          Authorization: `Bearer ${getStoredAuthToken()}`,
+        },
+      });
+
+      if (response.status === 200 || response.status === 204) {
+        setIsFavorited(!isFavorited);
+        // Обновляем информацию в localStorage
+        localStorage.setItem(`favorited-${id}`, String(!isFavorited));
+      } else {
+        console.error('Failed to toggle favorites');
+      }
+    } catch (error) {
+      console.error('Error toggling favorites:', error);
+    }
+  };
+
   const fetchUpdatedLikes = async () => {
     try {
       const response = await axios.get(`${apiUrl}/recipes/${id}/likes`);
-      return response.data; // Возвращаем объект, содержащий лайки
+      return response.data;
     } catch (error) {
       console.error('Error fetching updated likes:', error);
-      return { likesCount }; // Возвращаем объект с текущим количеством лайков в случае ошибки
+      return { likesCount };
     }
   };
 
   return (
     <div className="recipe-card">
       <Link to={`/recipes/${id}`} className="link-style">
-        <div className='recipe-img-contaner'>
-          <img className='recipe-img' src={imageUrl} alt={name} />
+        <div className="recipe-img-contaner">
+          <img className="recipe-img" src={imageUrl} alt={name} />
         </div>
-        <h3 className='title-recipe'>{name}</h3>
+        <h3 className="title-recipe">{name}</h3>
       </Link>
-      <div className='recipe-des'>
+      <div className="recipe-des">
         <p>{truncatedDescription}...</p>
         <p>{ingredients}</p>
-        <div className='like-block'>
-          <button className={`like-btn ${isLiked ? 'liked' : ''}`} onClick={handleLikeClick}>
-            <img className='like-img' src='/assets/like.svg' alt='no' />
+        <div className="like-favorite-block">
+          <div className="like-block">
+            <button
+              className={`like-btn ${isLiked ? 'liked' : ''}`}
+              onClick={handleLikeClick}
+            >
+              <img className="like-img" src="/assets/like.svg" alt="no" />
+            </button>
+            <p className="like-count">{likesCount}</p>
+          </div>
+          <button
+            className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
+            onClick={handleFavoriteClick}
+            disabled={!getStoredAuthToken()}
+          >
+            <img
+              className="favorite-img"
+              src="/assets/favorite.svg"
+              alt="no"
+            />
           </button>
-          <p className='like-count'>{likesCount}</p>
         </div>
       </div>
     </div>

@@ -18,9 +18,11 @@
     display: flex;
     justify-content: center;
 }
+
 .recipe-img{
     width: 300px;
 }
+
 .title-recipe{
     color: #84BD00;
     font-family: Roboto, sans-serif;
@@ -30,13 +32,23 @@
     line-height: normal;
     
 }
+
 .like-block{
     display: flex;
+    flex-direction: row;
     align-items: center;
 }
+
+.like-favorite-block{
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
 img.like-img{
     width: 20px;
 }
+
 .link-style {
     text-decoration: none;
     color: inherit; 
@@ -64,6 +76,27 @@ color: inherit;
 } 
 
 .liked {
+    filter: invert(60%) sepia(10%) saturate(1500%) hue-rotate(120deg) brightness(110%) contrast(85%);
+    /* Цвет acc4cc, можно настроить по своему усмотрению */
+}
+
+.favorite-btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 30px; /* Установите желаемую ширину для кнопки */
+    height: 30px; /* Установите желаемую высоту для кнопки */
+}
+  
+.favorite-img {
+    margin-right: 3px;
+    width: 20px; /* Установите желаемую ширину для изображения лайка */
+    height: 20px; /* Установите желаемую высоту для изображения лайка */
+} 
+
+.favorited {
     filter: invert(60%) sepia(10%) saturate(1500%) hue-rotate(120deg) brightness(110%) contrast(85%);
     /* Цвет acc4cc, можно настроить по своему усмотрению */
 }
