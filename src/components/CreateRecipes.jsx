@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import '../styles/CreateRecipes.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import recipesData from '../services/recipesData';
+
 import IngredientList from '../services/IngredientList_for_Create';
 import apiUrl from '../config';
 import axios from 'axios';
 
 const CreateRecipes = () => {
   const [recipes, setRecipes] = useState([]);
-  const [popularRecipes, setPopularRecipes] = useState(recipesData);
+  const [popularRecipes, setPopularRecipes] = useState();
   const [searchTerm, setSearchTerm] = useState('');
   const [nameRecipe, setRecipeName] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState([]);

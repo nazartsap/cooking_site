@@ -6,15 +6,12 @@ import apiUrl from '../config';
 import IngredientList from './IngredientList';
 import RecipeList from './RecipeList';
 import PopularRecipes from './PopularRecipes';
-import recipesData from '../services/recipesData';
-import ingredientData from '../services/ingredients';
 import axios from 'axios'; // Добавлен импорт axios
 import '../styles/Home.css';
 
 const Home = () => {
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [recipes, setRecipes] = useState([]);
-  const [popularRecipes, setPopularRecipes] = useState(recipesData);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleIngredientSelect = (ingredientId, ingredientName) => {
@@ -64,7 +61,7 @@ const Home = () => {
         {/* Ваши компоненты */}
         <IngredientList onSelect={handleIngredientSelect} />
         <RecipeList recipes={recipes} selectedIngredients={selectedIngredients} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange}  onIngredientRemove={handleIngredientRemove} />
-        <PopularRecipes popularRecipes={popularRecipes} />
+        <PopularRecipes/>
       </div>
     </DndProvider>
   );
