@@ -1,7 +1,27 @@
-import React from "react";
+import { useState, useEffect } from 'react';
 import { NavLink } from "react-router-dom";
 import '../styles/Navbar.css'
 const Navbar = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  // Функция для получения значения куки
+  const getCookie = (name) => {
+    const cookieName = `${name}=`;
+    const cookies = document.cookie.split(';');
+  
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+      if (cookie.indexOf(cookieName) === 0) {
+        return cookie.substring(cookieName.length, cookie.length);
+      }
+    }
+  
+    return null;
+  };
+  useEffect(() => {
+    // Проверяем наличие токена в localStorage
+    const token = getCookie('token');
+    setIsAuthenticated(!!token); // Устанавливаем значение isAuthenticated в зависимости от наличия токена
+  }, []); 
     return (
     <nav className="primary-nav">
       <NavLink to="/" className="nav-link">
@@ -19,9 +39,15 @@ const Navbar = () => {
       <NavLink to="/help" className="center-links">
         Топ-100 рецептов
       </NavLink>
-      <NavLink to="/profile">
-        <img  src ='/assets/user-profile_icon.svg' alt="sorry"/>
-      </NavLink>
+      <li className='primary-nav'>
+          {isAuthenticated ? (
+            <NavLink to="/profile">
+              <img src="/assets/user-profile_icon.svg" alt="Profile" />
+            </NavLink>
+          ) : (
+            <NavLink className="center-links" to="/login">Войти</NavLink>
+          )}
+        </li>
     </nav>
   );
 };

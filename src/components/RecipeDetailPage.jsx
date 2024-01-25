@@ -27,7 +27,6 @@ const RecipeDetailPage = () => {
 
   return (
     <div className='recipe-cont'>
-      <a>{selectedRecipe._id}</a>
       <h2 className='title-recipe-detail'>{selectedRecipe.name}</h2>
       <img src={selectedRecipe.imageUrl} alt={selectedRecipe.name} />
       <p className='description-recipe-detail'>{selectedRecipe.instructions}</p>
