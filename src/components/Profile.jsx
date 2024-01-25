@@ -1,13 +1,44 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import apiUrl from "../config";
-import RecipeCard from './RecipeCard';
+import RecipeCard from "./RecipeCard";
 import "../styles/Profile.css";
 
 const ProfilePage = () => {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    surname: "",
+    email: "",
+  });
+
+  const getStoredAuthToken = () => {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="));
+    return token ? token.split("=")[1] : null;
+  };
+
+  const handleLogout = () => {
+    document.cookie = "token=; path=/;";
+    window.location.href = '/';
+  };
 
   useEffect(() => {
+    const fetchProfileInfo = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/user/profile`, {
+          headers: {
+            Authorization: `Bearer ${getStoredAuthToken()}`,
+          },
+        });
+
+        setUserInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
     // Выполняем запрос к эндпоинту для получения избранных рецептов
     const fetchFavoriteRecipes = async () => {
       try {
@@ -23,15 +54,9 @@ const ProfilePage = () => {
       }
     };
 
+    fetchProfileInfo();
     fetchFavoriteRecipes();
   }, []);
-
-  const getStoredAuthToken = () => {
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="));
-    return token ? token.split("=")[1] : null;
-  };
 
   return (
     <div className="profile-block">
@@ -67,8 +92,10 @@ const ProfilePage = () => {
             alt="Profile"
             className="profile-image"
           />
-          <h2>Иван</h2>
-          <p>Email: ivan@example.com</p>
+          <h2>
+            {userInfo.name} {userInfo.surname}
+          </h2>
+          <p>Email: {userInfo.email}</p>
         </div>
         <button className="change-button">Редактировать</button>
         <div className="profile-content">
@@ -76,7 +103,9 @@ const ProfilePage = () => {
           <h3>Коментариев оставленно</h3>
         </div>
 
-        <button className="logout-button">Выйти</button>
+        <button className="logout-button" onClick={handleLogout}>
+          Выйти
+        </button>
       </div>
     </div>
   );
