@@ -36,7 +36,7 @@ const Navbar = () => {
       <NavLink to="/create_recipes" className="center-links">
         Создать свои
       </NavLink>
-      <NavLink to="/help" className="center-links">
+      <NavLink to="/top_recipes" className="center-links">
         Топ-100 рецептов
       </NavLink>
       <li className='primary-nav'>

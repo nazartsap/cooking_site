@@ -33,7 +33,7 @@ const Recipe = () => {
 
   return (
     <div className='recipe-container'>
-      <h2 className='header'>Рецепты</h2>
+      <h2 className='heder-create-recipes'>Рецепты</h2>
       <div className='input-find-ingredient'>
         <div className="form__group field">
           <input
