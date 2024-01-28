@@ -18,7 +18,7 @@ const Login = () => {
     document.cookie = `token=${token}; path=/;`;
 
     // Перенаправляем на нужную страницу, например, профиль
-    window.location.href = '/';
+    window.location.href = '/profile';
   };
 
   const handleSubmit = async (e) => {
