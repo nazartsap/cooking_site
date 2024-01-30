@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
-import '../styles/Home.css';
-import RecipeCard from './RecipeCard';
+import React, { useState } from "react";
+import "../styles/Home.css";
+import RecipeCard from "./RecipeCard";
 
-const RecipeList = ({ recipes, selectedIngredients, searchTerm, onSearchTermChange, onIngredientRemove }) => {
-  const [localSearchTerm, setLocalSearchTerm] = useState('');
+const RecipeList = ({
+  recipes,
+  selectedIngredients,
+  searchTerm,
+  onSearchTermChange,
+  onIngredientRemove,
+}) => {
+  const [localSearchTerm, setLocalSearchTerm] = useState("");
 
   const handleLocalSearchTermChange = (newTerm) => {
     setLocalSearchTerm(newTerm);
@@ -15,32 +21,44 @@ const RecipeList = ({ recipes, selectedIngredients, searchTerm, onSearchTermChan
   };
 
   return (
-    <div className='recipe_list_block'>
-      <h2 className='hader'>Рецепты</h2>
-      <div className='input-find-ingredient'>
+    <div className="recipe_list_block">
+      <h2 className="hader">Рецепты</h2>
+      <div className="input-find-ingredient">
         <div className="form__group field">
           <input
             type="text"
             className="form__field"
             placeholder="Поиск "
             name="text"
-            id='text'
+            id="text"
             value={localSearchTerm}
             onChange={(e) => handleLocalSearchTermChange(e.target.value)}
           />
-          <label htmlFor="name" className="form__label">Поиск </label>
+          <label htmlFor="name" className="form__label">
+            Поиск{" "}
+          </label>
         </div>
       </div>
-      <ul className='selected-ingredients-container'>
+      <ul className="selected-ingredients-container">
         {selectedIngredients.map((ingredient) => (
-          <li key={ingredient.id} onClick={() => handleIngredientRemove(ingredient.id)}>
+          <li
+            key={ingredient.id}
+            onClick={() => handleIngredientRemove(ingredient.id)}
+          >
             {ingredient.name}
           </li>
         ))}
       </ul>
       <div className="recipe-list">
         {recipes.map((recipe) => (
-          <RecipeCard key={recipe._id} id={recipe._id} name={recipe.name} instructions={recipe.instructions} imageUrl={recipe.imageUrl} likes={recipe.likes} ingredients={recipe.ingredients}/>
+          <RecipeCard
+            id={recipe._id}
+            name={recipe.name}
+            instructions={recipe.instructions}
+            imageUrl={recipe.imageUrl}
+            likes={recipe.likes}
+            ingredients={recipe.ingredients}
+          />
         ))}
       </div>
     </div>

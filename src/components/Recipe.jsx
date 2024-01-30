@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import RecipeCard from './RecipeCard';
-import '../styles/Recipe.css';
-import apiUrl from '../config';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import RecipeCard from "./RecipeCard";
+import "../styles/Recipe.css";
+import apiUrl from "../config";
 
 const Recipe = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Recipe = () => {
         const response = await axios.get(`${apiUrl}/recipes`);
         setRecipes(response.data);
       } catch (error) {
-        console.error('Error fetching recipes:', error);
+        console.error("Error fetching recipes:", error);
       }
     };
 
@@ -32,25 +32,34 @@ const Recipe = () => {
   });
 
   return (
-    <div className='recipe-container'>
-      <h2 className='heder-create-recipes'>Рецепты</h2>
-      <div className='input-find-ingredient'>
+    <div className="recipe-container">
+      <h2 className="heder-create-recipes">Рецепты</h2>
+      <div className="input-find-ingredient">
         <div className="form__group field">
           <input
             type="text"
             className="form__field"
             placeholder="Поиск"
             name="text"
-            id='text'
+            id="text"
             value={searchTerm}
             onChange={handleSearchTermChange}
           />
-          <label htmlFor="name" className="form__label">Поиск</label>
+          <label htmlFor="name" className="form__label">
+            Поиск
+          </label>
         </div>
       </div>
       <div className="recipe-cards-container">
         {filteredRecipes.map((recipe) => (
-          <RecipeCard key={recipe._id} id={recipe._id} name={recipe.name} instructions={recipe.instructions} imageUrl={recipe.imageUrl} likes={recipe.likes}/>
+          <RecipeCard
+            id={recipe._id}
+            name={recipe.name}
+            instructions={recipe.instructions}
+            imageUrl={recipe.imageUrl}
+            likes={recipe.likes}
+            ingredients={recipe.ingredients}
+          />
         ))}
       </div>
     </div>
