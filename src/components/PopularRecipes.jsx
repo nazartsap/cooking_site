@@ -23,8 +23,15 @@ const PopularRecipes = () => {
       <h2 className='hader'>Популярные рецепты</h2>
       <div className="popular-recipe-cards-container">
         {filteredRecipes.map((recipe) => (
-          <RecipeCard key={recipe._id} id={recipe._id} name={recipe.name} instructions={recipe.instructions} imageUrl={recipe.imageUrl} likes={recipe.likes} />
-        ))}
+          <RecipeCard
+          id={recipe._id}
+          name={recipe.name}
+          instructions={recipe.instructions}
+          imageUrl={recipe.imageUrl}
+          likes={recipe.likes}
+          ingredients={recipe.ingredients}
+        />
+      ))}
       </div>
     </div>
   );

@@ -117,7 +117,6 @@ const RecipeCard = ({
         <h3 className="title-recipe">{name}</h3>
       </Link>
       <div className="recipe-des">
-        <p>{truncatedDescription}...</p>
         {ingredients && ingredients.length > 0 && (
           <p>
             Ингредиенты:{" "}

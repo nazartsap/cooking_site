@@ -3,11 +3,14 @@ import { useParams } from "react-router-dom";
 import "../styles/RecipeDetailPage.css";
 import axios from "axios";
 import apiUrl from "../config";
+import RecipeCard from './RecipeCard';
 
 const RecipeDetailPage = () => {
   const [ recipe, setRecipe ] = useState([]);
   const { recipeId } = useParams();
-
+  const [recipes, setRecipes] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recipesPerPage] = useState(3);
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
@@ -21,7 +24,24 @@ const RecipeDetailPage = () => {
     fetchRecipes();
   }, [recipeId]);
 
-  // const selectedRecipe = recipes.find(recipe => String(recipe._id) === String(recipeId));
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/recipes`);
+        setRecipes(response.data);
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
+    };
+
+    fetchRecipes();
+  }, []);
+
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
   if (!recipe) {
     return <div>Рецепт не найден</div>;
   }
@@ -30,16 +50,31 @@ const RecipeDetailPage = () => {
     <div className="recipe-cont">
       <h2 className="title-recipe-detail">{recipe.name}</h2>
       <img src={recipe.imageUrl} alt={recipe.name} />
-      <p className="description-recipe-detail">{recipe.instructions}</p>
+      <div className='like-and-dislike'>
+      <div className='like'><img className='like-img' src='/assets/like.svg' alt='?'/> {recipe.likes}</div>
+      <div className='dislike'><img className='like-img' src='/assets/dislike.svg' alt='?'/> {recipe.likes}</div>
+      </div>
+      <h1>Ингредиенты</h1>
       {recipe.ingredients && recipe.ingredients.length > 0 && (
-          <p>
-            Ингредиенты: {' '}
+          <div className="ingredients-block">
             {recipe.ingredients.map((ingredient) => (
-              <span key={ingredient._id}>{ingredient.name}, </span>
+              <span className='ingridient'key={ingredient._id}>{ingredient.name} </span>
             ))}
-          </p>
+          </div>
         )}
-      <p>Рейтинг: {recipe.likes}</p>
+        <h1>Способ приготовления</h1>
+        <p className="description-recipe-detail">{recipe.instructions}</p>
+      <h1>Похожие рецепты</h1>
+        <div className='similar-recipes'>
+          {currentRecipes.map((recipe) => (
+            <RecipeCard key={recipe._id} id={recipe._id} name={recipe.name} instructions={recipe.instructions} imageUrl={recipe.imageUrl} likes={recipe.likes} ingredients={recipe.ingredients}/>
+          ))}
+        </div>
+      <div className="pagination">
+          <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>{'<'}</button>
+          <span>Страница {currentPage}</span>
+          <button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastRecipe >= recipes.length}>{'>'}</button>
+        </div>
     </div>
   );
 };

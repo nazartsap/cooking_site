@@ -23,5 +23,37 @@
     margin-bottom: 60px;
     line-height: 35px;
     break-inside: avoid;
-    white-space: pre-line; 
+    white-space: pre-line;
+    text-align: left; 
+    padding-right: 20%;
+    padding-left:  20%;
+}
+.like-and-dislike{
+    display: flex;
+    justify-content: space-around;
+}
+.like{
+    display: flex;
+    margin: 30%;
+    align-items: center;
+}
+.dislike{
+    display: flex;
+    margin: 30%;
+    align-items: center;
+}
+.similar-recipes{
+    display: flex;
+    flex-direction: row;
+}
+.ingredients-block{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+span.ingridient {
+    font-size: 20px;
+    font-family: "PT Serif", sans-serif;
+    margin-bottom: 10px;
+
 }
