@@ -21,4 +21,22 @@
 .filters{
     display: flex;
     justify-content: center;
+    align-items: baseline;
+}
+.select-menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    border-radius: 2px;
+    border-width: 1px;
+    background-color: white;
+    padding: 5%;
+}
+.cuisine-menu{
+display: flex;
+flex-direction: column;
+background-color: #acc4cc;
 }
