@@ -24,6 +24,8 @@ const RecipeDetailPage = () => {
     fetchRecipes();
   }, [recipeId]);
 
+  console.log(recipe)
+
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
@@ -54,6 +56,13 @@ const RecipeDetailPage = () => {
       <div className='like'><img className='like-img' src='/assets/like.svg' alt='?'/> {recipe.likes}</div>
       <div className='dislike'><img className='like-img' src='/assets/dislike.svg' alt='?'/> {recipe.likes}</div>
       </div>
+      {recipe.createdBy && (
+        <div className="author-info">
+          {recipe.createdBy.role === 'user' ? (
+            <p>Автор: {recipe.createdBy.name} {recipe.createdBy.surname}</p>
+          ) : null}
+        </div>
+      )}
       <h1>Ингредиенты</h1>
       {recipe.ingredients && recipe.ingredients.length > 0 && (
           <div className="ingredients-block">

@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
-import '../styles/CreateRecipes.css';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import React, { useState } from "react";
+import "../styles/CreateRecipes.css";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-import IngredientList from '../services/IngredientList_for_Create';
-import apiUrl from '../config';
-import axios from 'axios';
+import IngredientList from "../services/IngredientList_for_Create";
+import apiUrl from "../config";
+import axios from "axios";
 
 const CreateRecipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [popularRecipes, setPopularRecipes] = useState();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [nameRecipe, setRecipeName] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [nameRecipe, setRecipeName] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const [instructions, setInstructions] = useState(['']);
+  const [instructions, setInstructions] = useState([""]);
   const [stepCount, setStepCount] = useState(1);
+
+  const getStoredAuthToken = () => {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="));
+    return token ? token.split("=")[1] : null;
+  };
 
   const handleIngredientSelect = (ingredientId, ingredientName) => {
     setSelectedIngredients((prevIngredients) => [
@@ -48,7 +55,7 @@ const CreateRecipes = () => {
   };
 
   const handleAddStep = () => {
-    setInstructions((prevInstructions) => [...prevInstructions, '']);
+    setInstructions((prevInstructions) => [...prevInstructions, ""]);
     setStepCount((prevStepCount) => prevStepCount + 1);
   };
 
@@ -59,40 +66,38 @@ const CreateRecipes = () => {
     generateRecipes(selectedIngredients, searchTerm);
   };
 
-  const generateRecipes = (selectedIngredients, search = '') => {
+  const generateRecipes = (selectedIngredients, search = "") => {
     console.log(selectedIngredients);
     const encodedIngredients = selectedIngredients.map((ingredient) => {
-      if (typeof ingredient === 'string') {
+      if (typeof ingredient === "string") {
         return encodeURIComponent(ingredient);
       } else {
         return encodeURIComponent(ingredient.id);
       }
     });
 
-    const queryString = `ingredients=${encodedIngredients.join(',')}`;
+    const queryString = `ingredients=${encodedIngredients.join(",")}`;
     console.log(queryString);
 
     axios
       .get(`${apiUrl}/recipes/searchByIngredients?${queryString}`)
       .then((response) => setRecipes(response.data))
-      .catch((error) =>
-        console.error('Error fetching recipes:', error)
-      );
+      .catch((error) => console.error("Error fetching recipes:", error));
   };
 
   const handleCreateRecipe = async () => {
     try {
       // Проверка наличия обязательных полей
-      if (!nameRecipe || !instructions.some((step) => step.trim() !== '')) {
-        console.error('Name and instructions are required fields.');
+      if (!nameRecipe || !instructions.some((step) => step.trim() !== "")) {
+        console.error("Name and instructions are required fields.");
         return;
       }
 
       // Подготовка данных для отправки на сервер
       const formData = new FormData();
-      formData.append('image', selectedImage);
-      formData.append('name', nameRecipe);
-      formData.append('instructions', instructions.join('\n'));
+      formData.append("image", selectedImage);
+      formData.append("name", nameRecipe);
+      formData.append("instructions", instructions.join("\n"));
 
       // Добавление идентификаторов ингредиентов
       selectedIngredients.forEach((ingredient, index) => {
@@ -104,14 +109,15 @@ const CreateRecipes = () => {
       // Отправка POST-запроса на сервер с использованием FormData
       const response = await axios.post(`${apiUrl}/recipes`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getStoredAuthToken()}`,
         },
       });
 
       // Обработка успешного ответа, например, очистка формы
-      console.log('Recipe created successfully:', response.data);
-      setRecipeName('');
-      setInstructions(['']);
+      console.log("Recipe created successfully:", response.data);
+      setRecipeName("");
+      setInstructions([""]);
       setSelectedIngredients([]);
       setSelectedImage(null); // Очистка выбранного изображения
       setShowSuccessMessage(true);
@@ -122,37 +128,37 @@ const CreateRecipes = () => {
     } catch (error) {
       // Обработка ошибки, например, отображение сообщения об ошибке
       console.error(
-        'Error creating recipe:',
-        error.response?.data?.message || 'Unknown error'
+        "Error creating recipe:",
+        error.response?.data?.message || "Unknown error"
       );
     }
   };
 
   return (
-    <div className='create-block'>
-      <h1 className='heder-create-recipes'>Создать свои рецепты</h1>
-      <div className='inputs'>
+    <div className="create-block">
+      <h1 className="heder-create-recipes">Создать свои рецепты</h1>
+      <div className="inputs">
         <input
-          className='input-name'
-          type='text'
-          placeholder='Название рецепта'
+          className="input-name"
+          type="text"
+          placeholder="Название рецепта"
           onChange={(e) => setItam(e)}
         />
-        <div className='stratch'></div>
-        <h1 className='heder-create-recipes'>Фото готового блюда</h1>
-        <label htmlFor='images' className='drop-container' id='dropcontainer'>
-          <span className='drop-title'>Перетащите фотографии сюда</span>
+        <div className="stratch"></div>
+        <h1 className="heder-create-recipes">Фото готового блюда</h1>
+        <label htmlFor="images" className="drop-container" id="dropcontainer">
+          <span className="drop-title">Перетащите фотографии сюда</span>
           или
           <input
-            type='file'
-            id='images'
+            type="file"
+            id="images"
             onChange={(e) => setSelectedImage(e.target.files[0])}
           />
         </label>
-        <div className='stratch'></div>
+        <div className="stratch"></div>
       </div>
       <DndProvider backend={HTML5Backend}>
-        <div className='block'>
+        <div className="block">
           <IngredientList
             onSelect={handleIngredientSelect}
             selectedIngredients={selectedIngredients}
@@ -160,31 +166,42 @@ const CreateRecipes = () => {
           />
         </div>
       </DndProvider>
-      <div className='input-ingredient-block'>
-        <h1 className='heder-create-recipes'>Инструкция</h1>
+      <div className="input-ingredient-block">
+        <h1 className="heder-create-recipes">Инструкция</h1>
         {instructions.map((instruction, index) => (
-          <div className='input-inst-block' key={index}>
+          <div className="input-inst-block" key={index}>
             <h2>Шаг {index + 1}</h2>
             <textarea
-              className='input-inst'
+              className="input-inst"
               placeholder={`Инструкция к шагу ${index + 1}`}
-              rows='4'
-              cols='80'
+              rows="4"
+              cols="80"
               value={instruction}
               onChange={(e) => setInstructionAtIndex(e, index)}
             />
-            <button className='btn-remove-step' onClick={() => handleRemoveStep(index)}><img className='img-delete' src='/assets/delete.png'/></button>
+            <button
+              className="btn-remove-step"
+              onClick={() => handleRemoveStep(index)}
+            >
+              <img className="img-delete" src="/assets/delete.png" />
+            </button>
           </div>
         ))}
-        <button className='btn-add-step' onClick={handleAddStep}>
+        <button className="btn-add-step" onClick={handleAddStep}>
           Добавить шаг
         </button>
       </div>
-      <div className='center'>
-      <button className='btn-primary_create-recipe' onClick={handleCreateRecipe}>Создать рецепт</button>
+      <div className="center">
+        <button
+          className="btn-primary_create-recipe"
+          onClick={handleCreateRecipe}
+          disabled={!getStoredAuthToken()}
+        >
+          Создать рецепт
+        </button>
       </div>
       {showSuccessMessage && (
-        <div className='success-message'>Рецепт успешно создан!</div>
+        <div className="success-message">Рецепт успешно создан!</div>
       )}
     </div>
   );
