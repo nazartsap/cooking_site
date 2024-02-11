@@ -57,7 +57,7 @@ const Home = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className='block'>
+      <div className='block-home-elements'>
         {/* Ваши компоненты */}
         <IngredientList onSelect={handleIngredientSelect} />
         <RecipeList recipes={recipes} selectedIngredients={selectedIngredients} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange}  onIngredientRemove={handleIngredientRemove} />

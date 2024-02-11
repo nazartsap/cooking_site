@@ -55,9 +55,8 @@ const Recipe = () => {
       <h2 className="heder-create-recipes">Рецепты</h2>
       <div className="filters">
         <div className="cuisine-filter">
-          <h3>Фильтр по кухням:</h3>
           <div className="cuisine-dropdown">
-            <button onClick={() => setShowCuisineMenu(!showCuisineMenu)}>Выбрать кухни</button>
+            <button className="select-menu" onClick={() => setShowCuisineMenu(!showCuisineMenu)}>Выбрать кухнью</button>
             {showCuisineMenu && (
               <div className="cuisine-menu">
                 <label>
@@ -89,11 +88,13 @@ const Recipe = () => {
           </div>
         </div>
         <div className="sort-by-likes">
-          <h3>Сортировать по лайкам:</h3>
+          <button className="select-menu"  onClick={() => setShowCuisineMenu(!showCuisineMenu)}>Сортировать по</button>
+          {showCuisineMenu &&(
           <label>
             <input type="checkbox" checked={sortedByLikes} onChange={() => setSortedByLikes(!sortedByLikes)} />
             По убыванию
           </label>
+          )}
         </div>
       </div>
       <div className="recipe-cards-container">
