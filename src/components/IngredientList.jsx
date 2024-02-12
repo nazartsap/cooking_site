@@ -4,39 +4,24 @@ import axios from 'axios';
 import '../styles/Home.css';
 import apiUrl from '../config';
 
-const Ingredient = ({ id, name, onSelect }) => {
-  const [{ isDragging }, drag] = useDrag({
-    type: 'INGREDIENT',
-    item: { id, name },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  return (
-    <div
-      className='ingredient-item'
-      onClick={() => onSelect(id, name)}
-      ref={drag}
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        opacity: isDragging ? 0.5 : 1,
-        cursor: 'move',
-        marginBottom: '8px',
-        border: '1px solid #000',
-        padding: '8px',
-        borderRadius: '11px',
-        backgroundColor: '#acc4cc',
-        gap: '2px',
-      }}
-      >
-        {name}
-      </div>
-    );
+const Ingredient = ({ id, name, onSelect, onRemove }) => {
+  const handleCheckboxChange = (event) => {
+    if (event.target.checked) {
+      onSelect(id, name);
+    } else {
+      onRemove(id);
+    }
   };
 
-const IngredientList = ({ onSelect }) => {
+  return (
+    <div className='ingredient-item'>
+      {name}
+      <input type="checkbox" onChange={handleCheckboxChange} />
+    </div>
+  );
+};
+
+const IngredientList = ({ onSelect, onRemove }) => {
   const [ingredients, setIngredients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [visibleIngredients, setVisibleIngredients] = useState(20);
@@ -55,40 +40,42 @@ const IngredientList = ({ onSelect }) => {
   }, []);
 
   const filteredIngredients = ingredients
-  .filter((ingredient) => ingredient.name.toLowerCase().includes(searchTerm.toLowerCase()))
-  .slice(0, visibleIngredients); // Используйте slice для отображения только нужного количества ингредиентов
+    .filter((ingredient) => ingredient.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .slice(0, visibleIngredients);
 
-const showMoreIngredients = () => {
-  setVisibleIngredients((prevVisibleIngredients) => prevVisibleIngredients + 20);
-};
+  const showMoreIngredients = () => {
+    setVisibleIngredients((prevVisibleIngredients) => prevVisibleIngredients + 20);
+  };
 
-return (
-  <div className='ingredient-block'>
-    <h2 className='hader'>Ингредиенты</h2>
-    <div className='input-find-ingredient'>
-      <div className="form__group field">
-        <input
-          type="text"
-          className="form__field"
-          placeholder="Поиск "
-          name="text"
-          id='text'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} />
-        <label htmlFor="name" className="form__label">Поиск </label>
+  return (
+    <div className='ingredient-block'>
+      <h2 className='hader'>Ингредиенты</h2>
+      <div className='input-find-ingredient'>
+        <div className="form__group field">
+          <input
+            type="text"
+            className="form__field"
+            placeholder="Поиск "
+            name="text"
+            id='text'
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)} />
+          <label htmlFor="name" className="form__label">Поиск </label>
+        </div>
       </div>
+      <div className='ingredient-list'>
+        {filteredIngredients.map((ingredient) => (
+          <Ingredient key={ingredient._id} id={ingredient._id} name={ingredient.name} onSelect={onSelect} onRemove={onRemove} />
+        ))}
+      </div>
+      <div className='stratch'></div>
+      {visibleIngredients < ingredients.length && (
+        <div className='btn-show_more-conteiner'> 
+          <button className='btn-show_more' onClick={showMoreIngredients}>Показать еще</button> 
+        </div>
+      )}
     </div>
-    <div className='ingredient-list'>
-      {filteredIngredients.map((ingredient) => (
-        <Ingredient key={ingredient._id} id={ingredient._id} name={ingredient.name} onSelect={onSelect} />
-      ))}
-    </div>
-    <div className='stratch'></div>
-    {visibleIngredients < ingredients.length && (
-      <button className='btn-show_more' onClick={showMoreIngredients}>Показать еще</button>
-    )}
-  </div>
-);
+  );
 };
 
 export default IngredientList;

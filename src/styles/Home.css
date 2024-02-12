@@ -1,5 +1,6 @@
 .block-home-elements{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
@@ -36,6 +37,9 @@
   background-color: white;
   padding: 2%;
   border-radius: 6px;
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-bottom: 5%;
 }
 
 .find_placeholder {
@@ -68,14 +72,27 @@ li{
 }
 
 /* Ингредиенты */
+.ingredient-item{
+  display: flex;
+  justify-content: center;
+  cursor: move;
+  margin-bottom: 8px;
+  border: 1px solid #000;
+  padding: 8px;
+  border-radius: 11px;
+  background-color: #acc4cc;
+  gap: 2px;
+}
 .ingredient-block {
   display: flex;
   font-family: 'Noto Sans', sans-serif;
   flex-direction: column;
   padding: 2%;
   background-color: white;
-  max-width: 250px;
   border-radius: 6px;
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-bottom: 5%;
 }
 .selected-ingredients-bloc{
   background-color: #D9D9D9;
@@ -166,11 +183,17 @@ body{
   justify-content: center;
   margin-bottom: 10%;
 }
-.btn-show_more{
+.btn-show_more-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-show_more{ 
   padding: 2%;
   margin-top: 5%;
   border-radius: 11px;
   background-color: #acc4cc;
+  max-width: 200px;
 }
 .stratch{
   background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2), transparent);

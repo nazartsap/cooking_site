@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import apiUrl from '../config';
-
 import IngredientList from './IngredientList';
 import RecipeList from './RecipeList';
-import PopularRecipes from './PopularRecipes';
 import axios from 'axios'; // Добавлен импорт axios
 import '../styles/Home.css';
 
@@ -21,18 +19,17 @@ const Home = () => {
     ]);
     generateRecipes([...selectedIngredients, ingredientId]);
   };
-  
-
-  const handleSearchTermChange = (newTerm) => {
-    setSearchTerm(newTerm);
-    generateRecipes(selectedIngredients, newTerm);
-  };
 
   const handleIngredientRemove = (ingredientId) => {
     setSelectedIngredients(prevIngredients =>
       prevIngredients.filter(ingredient => ingredient.id !== ingredientId)
     );
     generateRecipes(selectedIngredients, searchTerm);
+  };
+
+  const handleSearchTermChange = (newTerm) => {
+    setSearchTerm(newTerm);
+    generateRecipes(selectedIngredients, newTerm);
   };
 
   const generateRecipes = (selectedIngredients, search = '') => {
@@ -58,13 +55,10 @@ const Home = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className='block-home-elements'>
-        {/* Ваши компоненты */}
-        <IngredientList onSelect={handleIngredientSelect} />
-        <RecipeList recipes={recipes} selectedIngredients={selectedIngredients} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange}  onIngredientRemove={handleIngredientRemove} />
-        <PopularRecipes/>
+        <IngredientList onSelect={handleIngredientSelect} onRemove={handleIngredientRemove} />
+        <RecipeList recipes={recipes} selectedIngredients={selectedIngredients} searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} />
       </div>
     </DndProvider>
   );
 };
-
 export default Home;
