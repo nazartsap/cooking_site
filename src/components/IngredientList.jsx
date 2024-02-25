@@ -16,7 +16,7 @@ const Ingredient = ({ id, name, onSelect, onRemove }) => {
   return (
     <div className='ingredient-item'>
       {name}
-      <input type="checkbox" onChange={handleCheckboxChange} />
+      <input  className='checkbox' type="checkbox" onChange={handleCheckboxChange} />
     </div>
   );
 };

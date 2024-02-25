@@ -1,3 +1,4 @@
+// RecipeList.js
 import React, { useState } from "react";
 import "../styles/Home.css";
 import RecipeCard from "./RecipeCard";
@@ -19,6 +20,26 @@ const RecipeList = ({
   const handleIngredientRemove = (ingredientId) => {
     onIngredientRemove(ingredientId);
   };
+
+  const filteredRecipes = recipes.filter((recipe) => {
+    // Проверяем, содержит ли название рецепта строку поиска
+    const includesSearchTerm = recipe.name
+      .toLowerCase()
+      .includes(localSearchTerm.toLowerCase());
+  
+    // Проверяем, содержит ли рецепт хотя бы один из выбранных ингредиентов
+    const includesAnySelectedIngredient =
+      selectedIngredients.length === 0 ||
+      selectedIngredients.some((selectedIngredient) =>
+        recipe.ingredients.some(
+          (recipeIngredient) =>
+            recipeIngredient._id === selectedIngredient.id
+        )
+      );
+  
+    // Возвращаем true только если оба условия выполнены
+    return includesAnySelectedIngredient && includesSearchTerm;
+  });
 
   return (
     <div className="recipe_list_block">
@@ -50,8 +71,9 @@ const RecipeList = ({
         ))}
       </ul>
       <div className="recipe-list">
-        {recipes.map((recipe) => (
+        {filteredRecipes.map((recipe) => (
           <RecipeCard
+            key={recipe._id}
             id={recipe._id}
             name={recipe.name}
             instructions={recipe.instructions}

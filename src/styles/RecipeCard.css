@@ -100,3 +100,9 @@ color: inherit;
     filter: invert(60%) sepia(10%) saturate(1500%) hue-rotate(120deg) brightness(110%) contrast(85%);
     /* Цвет acc4cc, можно настроить по своему усмотрению */
 }
+.recipe-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center ;
+    gap: 10px;
+}
