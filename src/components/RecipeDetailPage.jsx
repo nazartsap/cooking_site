@@ -51,7 +51,7 @@ const RecipeDetailPage = () => {
   return (
     <div className="recipe-cont">
       <h2 className="title-recipe-detail">{recipe.name}</h2>
-      <img src={recipe.imageUrl} alt={recipe.name} />
+      <img className="img-food" src={recipe.imageUrl} alt={recipe.name} />
       <div className='like-and-dislike'>
       <div className='like'><img className='like-img' src='/assets/like.svg' alt='?'/> {recipe.likes}</div>
       <div className='dislike'><img className='like-img' src='/assets/dislike.svg' alt='?'/> {recipe.likes}</div>

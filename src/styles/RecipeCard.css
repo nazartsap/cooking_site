@@ -17,6 +17,7 @@
 .recipe-img-contaner{
     display: flex;
     justify-content: center;
+    max-height: 200px;
 }
 
 .recipe-img{

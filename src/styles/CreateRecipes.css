@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     background-color: white;
+    margin-right: 20%;
+    margin-left: 20%;
     
 }
 .heder-create-recipes{

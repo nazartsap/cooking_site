@@ -75,13 +75,30 @@ li{
 .ingredient-item{
   display: flex;
   justify-content: center;
+  align-items: baseline;
   cursor: move;
   margin-bottom: 8px;
   border: 1px solid #000;
   padding: 8px;
   border-radius: 11px;
-  background-color: #acc4cc;
+  background-color: #ffffff;
   gap: 2px;
+}
+.checkbox {
+  appearance: none; /* Убираем стандартный внешний вид */
+  -webkit-appearance: none; /* Для Safari */
+  -moz-appearance: none; /* Для Firefox */
+  -ms-appearance: none; /* Для IE */
+  width: 10px; /* Размер круглого чекбокса */
+  height: 10px; /* Размер круглого чекбокса */
+  border: 2px solid #acc4cc; /* Граница круглого чекбокса */
+  border-radius: 50%; /* Делаем круглый чекбокс */
+  outline: none; /* Убираем обводку при фокусе */
+  cursor: pointer; /* Делаем курсор указателем */
+}
+
+.checkbox:checked {
+  background-color: #84BD00; /* Цвет фона круглого чекбокса при выборе */
 }
 .ingredient-block {
   display: flex;
